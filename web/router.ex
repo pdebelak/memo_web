@@ -17,6 +17,9 @@ defmodule MemoWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     resources "/users", UserController, only: [:new, :create, :edit, :update]
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+    delete "/logout", SessionController, :delete
     get "/", PageController, :index
   end
 

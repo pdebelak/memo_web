@@ -5,12 +5,12 @@ defmodule MemoWeb.UserControllerTest do
   @valid_attrs %{email: "test@example.com", password: "password", password_confirmation: "password"}
   @invalid_attrs %{}
 
-  test "renders form for new resources", %{conn: conn} do
+  test "renders form for new users", %{conn: conn} do
     conn = get conn, user_path(conn, :new)
     assert html_response(conn, 200) =~ "New user"
   end
 
-  test "creates resource and redirects when data is valid", %{conn: conn} do
+  test "creates user and redirects when data is valid", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @valid_attrs
     assert redirected_to(conn) == page_path(conn, :index)
     assert Repo.get_by(User, email: @valid_attrs[:email])
@@ -32,7 +32,7 @@ defmodule MemoWeb.UserControllerTest do
     refute Guardian.Plug.current_resource(conn)
   end
 
-  test "renders form for editing chosen resource", %{conn: conn} do
+  test "renders form for editing chosen user", %{conn: conn} do
     user = Repo.insert! %User{}
     conn = conn
     |> with_current_user(user)
