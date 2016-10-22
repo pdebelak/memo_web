@@ -52,6 +52,7 @@ defmodule MemoWeb.Web do
       import MemoWeb.Router.Helpers
       import MemoWeb.ErrorHelpers
       import MemoWeb.Gettext
+      import MemoWeb.FormHelpers
     end
   end
 

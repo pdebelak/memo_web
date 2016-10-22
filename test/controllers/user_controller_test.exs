@@ -7,7 +7,7 @@ defmodule MemoWeb.UserControllerTest do
 
   test "renders form for new users", %{conn: conn} do
     conn = get conn, user_path(conn, :new)
-    assert html_response(conn, 200) =~ "New user"
+    assert html_response(conn, 200) =~ "Register"
   end
 
   test "creates user and redirects when data is valid", %{conn: conn} do
@@ -24,7 +24,7 @@ defmodule MemoWeb.UserControllerTest do
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @invalid_attrs
-    assert html_response(conn, 200) =~ "New user"
+    assert html_response(conn, 200) =~ "Register"
   end
 
   test "does not log in with unsuccessful creation", %{conn: conn} do
@@ -37,7 +37,7 @@ defmodule MemoWeb.UserControllerTest do
     conn = conn
     |> with_current_user(user)
     |> get(user_path(conn, :edit, user))
-    assert html_response(conn, 200) =~ "Edit user"
+    assert html_response(conn, 200) =~ "Update Settings"
   end
 
   test "renders 401 for edit if not logged in", %{conn: conn} do
@@ -84,6 +84,6 @@ defmodule MemoWeb.UserControllerTest do
     conn = conn
     |> with_current_user(user)
     |> put(user_path(conn, :update, user), user: @invalid_attrs)
-    assert html_response(conn, 200) =~ "Edit user"
+    assert html_response(conn, 200) =~ "Update Settings"
   end
 end

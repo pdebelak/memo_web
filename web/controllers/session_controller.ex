@@ -15,6 +15,7 @@ defmodule MemoWeb.SessionController do
       {:ok, user} ->
         conn
         |> Guardian.Plug.sign_in(user)
+        |> put_flash(:info, "Signed in!")
         |> redirect(to: page_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)

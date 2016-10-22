@@ -1,8 +1,6 @@
 defmodule MemoWeb.AuthenticatedPlug do
   use Plug.Builder
 
-  plug Guardian.Plug.VerifySession
-  plug Guardian.Plug.LoadResource
   plug Guardian.Plug.EnsureAuthenticated, handler: __MODULE__
 
   def unauthenticated(conn, params) do
