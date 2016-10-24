@@ -19,10 +19,16 @@
                 <%= nav_link @conn, "MemoWeb", memo_path(@conn, :index) %>
               </h1>
             </div>
-            <nav class="nav-right">
+            <span class="nav-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            <nav class="nav-right nav-menu">
               <%= if logged_in?(@conn) do %>
+                <%= nav_link @conn, "Write", memo_path(@conn, :new) %>
                 <%= nav_link @conn, "Settings", user_path(@conn, :edit, current_user(@conn)) %>
-                <%= link "Logout", to: session_path(@conn, :delete), form: [class: "nav-item"], method: :delete %>
+                <%= link "Logout", to: session_path(@conn, :delete), form: [class: "nav-item has-text-left"], method: :delete %>
               <% else %>
                 <%= nav_link @conn, "Register", user_path(@conn, :new) %>
                 <%= nav_link @conn, "Login", session_path(@conn, :new) %>
