@@ -13,7 +13,7 @@ defmodule MemoWeb.SessionControllerTest do
   test "signs in and redirects when data is valid", %{conn: conn} do
     Repo.insert! User.changeset(%User{}, @valid_attrs)
     conn = post conn, session_path(conn, :create), user: @valid_login
-    assert redirected_to(conn) == page_path(conn, :index)
+    assert redirected_to(conn) == memo_path(conn, :index)
     assert @valid_attrs[:email] == Guardian.Plug.current_resource(conn).email
   end
 

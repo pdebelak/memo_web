@@ -1,0 +1,23 @@
+<section class="hero">
+  <div class="hero-body">
+    <h1 class="title">
+      MemoWeb
+    </h1>
+    <h2 class="subtitle">
+      Write your memos on the web
+    </h2>
+  </div>
+</section>
+
+<%= for memo <- @memos do %>
+  <hr>
+  <article>
+    <h1 class="title"><%= link memo.title, to: memo_path(@conn, :show, memo) %></h1>
+    <p class="subtitle">by <%= user_name(memo) %></p>
+    <div class="content"><%= raw memo_body(memo) %></div>
+  </article>
+<% end %>
+
+<%= if logged_in?(@conn) do %>
+  <%= link "New memo", to: memo_path(@conn, :new) %>
+<% end %>

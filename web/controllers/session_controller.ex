@@ -16,7 +16,7 @@ defmodule MemoWeb.SessionController do
         conn
         |> Guardian.Plug.sign_in(user)
         |> put_flash(:info, "Signed in!")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: memo_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -26,6 +26,6 @@ defmodule MemoWeb.SessionController do
     conn
     |> Guardian.Plug.sign_out()
     |> put_flash(:info, "Logged out")
-    |> redirect(to: page_path(conn, :index))
+    |> redirect(to: memo_path(conn, :index))
   end
 end

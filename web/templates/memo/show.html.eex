@@ -1,0 +1,12 @@
+<article>
+  <h1 class="title"><%= @memo.title %></h1>
+  <p class="subtitle">by <%= user_name(@memo) %></p>
+  <div class="content"><%= raw memo_body(@memo) %></div>
+
+  <%= if logged_in?(@conn) && current_user(@conn).id == @memo.user_id do %>
+    <div class="block">
+      <%= link "Edit", to: memo_path(@conn, :edit, @memo), class: "button" %>
+      <%= link "Delete", to: memo_path(@conn, :delete, @memo), method: :delete, class: "button is-danger", data: [confirm: "Are you sure?"], form: [class: "is-inline-flex"] %>
+    </div>
+  <% end %>
+</article>

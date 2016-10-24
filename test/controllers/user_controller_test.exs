@@ -12,7 +12,7 @@ defmodule MemoWeb.UserControllerTest do
 
   test "creates user and redirects when data is valid", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @valid_attrs
-    assert redirected_to(conn) == page_path(conn, :index)
+    assert redirected_to(conn) == memo_path(conn, :index)
     assert Repo.get_by(User, email: @valid_attrs[:email])
   end
 
@@ -60,7 +60,7 @@ defmodule MemoWeb.UserControllerTest do
     conn = conn
     |> with_current_user(user)
     |> put(user_path(conn, :update, user), user: @valid_attrs)
-    assert redirected_to(conn) == page_path(conn, :index)
+    assert redirected_to(conn) == memo_path(conn, :index)
     assert Repo.get_by(User, email: @valid_attrs[:email])
   end
 

@@ -19,7 +19,7 @@ defmodule MemoWeb.UserController do
         conn
         |> Guardian.Plug.sign_in(user)
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: memo_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -45,7 +45,7 @@ defmodule MemoWeb.UserController do
         {:ok, _user} ->
           conn
           |> put_flash(:info, "User updated successfully.")
-          |> redirect(to: page_path(conn, :index))
+          |> redirect(to: memo_path(conn, :index))
         {:error, changeset} ->
           render(conn, "edit.html", user: user, changeset: changeset)
       end

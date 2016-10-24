@@ -45,4 +45,9 @@ defmodule MemoWeb.UserTest do
     {:error, changeset} = Repo.insert(changeset)
     assert length(changeset.errors) > 0
   end
+
+  test "name" do
+    user = %User{ email: "peter@example.com" }
+    assert User.name(user) == "peter"
+  end
 end

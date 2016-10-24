@@ -15,7 +15,9 @@
         <header class="nav">
           <div class="container">
             <div class="nav-left">
-              <%= nav_link @conn, "MemoWeb", page_path(@conn, :index) %>
+              <h1 class="title">
+                <%= nav_link @conn, "MemoWeb", memo_path(@conn, :index) %>
+              </h1>
             </div>
             <nav class="nav-right">
               <%= if logged_in?(@conn) do %>

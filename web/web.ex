@@ -36,6 +36,10 @@ defmodule MemoWeb.Web do
 
       import MemoWeb.Router.Helpers
       import MemoWeb.Gettext
+
+      defp current_user(conn) do
+        Guardian.Plug.current_resource(conn)
+      end
     end
   end
 
@@ -53,6 +57,7 @@ defmodule MemoWeb.Web do
       import MemoWeb.ErrorHelpers
       import MemoWeb.Gettext
       import MemoWeb.FormHelpers
+      import MemoWeb.UserHelpers
     end
   end
 

@@ -27,6 +27,10 @@ defmodule MemoWeb.User do
     end
   end
 
+  def name(user) do
+    String.replace(user.email, ~r/@.*/, "")
+  end
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
