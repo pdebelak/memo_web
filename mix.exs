@@ -19,7 +19,7 @@ defmodule MemoWeb.Mixfile do
   def application do
     [mod: {MemoWeb, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin, :scrivener_ecto]]
+                    :phoenix_ecto, :postgrex, :comeonin]]
   end
 
   # Specifies which paths to compile per environment.
@@ -40,7 +40,7 @@ defmodule MemoWeb.Mixfile do
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 2.5"},
      {:guardian, "~> 0.13.0"},
-     {:scrivener_ecto, "~> 1.0"},
+     {:kerosene, "~> 0.4.0"},
      {:earmark, "~> 1.0"}]
   end
 

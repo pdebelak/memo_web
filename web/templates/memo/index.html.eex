@@ -21,3 +21,5 @@
     <div class="content"><%= raw memo_body(memo) %></div>
   </article>
 <% end %>
+
+<%= paginate @conn, @kerosene %>

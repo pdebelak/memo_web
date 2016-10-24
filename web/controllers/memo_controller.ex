@@ -7,10 +7,10 @@ defmodule MemoWeb.MemoController do
   plug AuthenticatedPlug when action in [:new, :create, :edit, :update, :delete]
 
   def index(conn, params) do
-    pagination = Memo
+    {memos, kerosene} = Memo
     |> preload(:user)
     |> Repo.paginate(params)
-    render(conn, "index.html", memos: pagination.entries, page_number: pagination.page_number, total_pages: pagination.total_pages)
+    render(conn, "index.html", memos: memos, kerosene: kerosene)
   end
 
   def new(conn, _params) do
@@ -71,10 +71,10 @@ defmodule MemoWeb.MemoController do
   end
 
   def for_user(conn, params = %{"user_id" => user_id}) do
-    pagination = Memo
+    {memos, kerosene} = Memo
     |> preload(:user)
     |> where(user_id: ^user_id)
-    |> Repo.paginate(params)
-    render(conn, "index.html", memos: pagination.entries, page_number: pagination.page_number, total_pages: pagination.total_pages, user: MemoWeb.User.find(user_id))
+    |> Repo.paginate(%{"page" => params["page"]})
+    render(conn, "index.html", memos: memos, user: MemoWeb.User.find(user_id), kerosene: kerosene)
   end
 end
