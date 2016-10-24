@@ -1,6 +1,6 @@
 <article>
   <h1 class="title"><%= @memo.title %></h1>
-  <p class="subtitle">by <%= user_name(@memo) %></p>
+  <p class="subtitle">by <%= link user_name(@memo), to: memo_path(@conn, :for_user, @memo.user) %></p>
   <div class="content"><%= raw memo_body(@memo) %></div>
 
   <%= if logged_in?(@conn) && current_user(@conn).id == @memo.user_id do %>

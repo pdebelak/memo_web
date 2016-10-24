@@ -19,6 +19,7 @@ defmodule MemoWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     resources "/memos", MemoController, except: [:index]
+    get "/memos/users/:user_id", MemoController, :for_user
     get "/register", UserController, :new
     post "/register", UserController, :create
     get "/settings", UserController, :edit

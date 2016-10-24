@@ -69,4 +69,12 @@ defmodule MemoWeb.MemoController do
     |> put_flash(:info, "Memo deleted successfully.")
     |> redirect(to: memo_path(conn, :index))
   end
+
+  def for_user(conn, params = %{"user_id" => user_id}) do
+    pagination = Memo
+    |> preload(:user)
+    |> where(user_id: ^user_id)
+    |> Repo.paginate(params)
+    render(conn, "index.html", memos: pagination.entries, page_number: pagination.page_number, total_pages: pagination.total_pages, user: MemoWeb.User.find(user_id))
+  end
 end

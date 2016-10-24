@@ -95,4 +95,15 @@ defmodule MemoWeb.MemoControllerTest do
     assert redirected_to(conn) == memo_path(conn, :index)
     refute Repo.get(Memo, memo.id)
   end
+
+  test "for_user shows users posts", %{conn: conn} do
+    user = Repo.insert! %User{email: "test@example.com"}
+    Repo.insert! %Memo{user: user, title: "User post"}
+    other_user = Repo.insert! %User{email: "test2@example.com"}
+    Repo.insert! %Memo{user: other_user, title: "Other user post"}
+    conn = get conn, memo_path(conn, :for_user, user)
+    assert html_response(conn, 200) =~ "User post"
+    refute html_response(conn, 200) =~ "Other user post"
+    assert html_response(conn, 200) =~ "Posts by \"test\""
+  end
 end

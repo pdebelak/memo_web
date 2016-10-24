@@ -3,9 +3,14 @@ defmodule MemoWeb.MemoViewTest do
 
   alias MemoWeb.MemoView
 
-  test "user_name" do
+  test "user_name with memo" do
     memo = %MemoWeb.Memo{user: %MemoWeb.User{email: "test@example.com"}}
     assert MemoView.user_name(memo) == "test"
+  end
+
+  test "user_name with user" do
+    user = %MemoWeb.User{email: "test@example.com"}
+    assert MemoView.user_name(user) == "test"
   end
 
   test "memo_body with markdown turns into html" do
