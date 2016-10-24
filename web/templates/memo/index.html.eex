@@ -17,7 +17,3 @@
     <div class="content"><%= raw memo_body(memo) %></div>
   </article>
 <% end %>
-
-<%= if logged_in?(@conn) do %>
-  <%= link "New memo", to: memo_path(@conn, :new) %>
-<% end %>
