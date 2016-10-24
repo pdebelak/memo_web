@@ -27,7 +27,7 @@
             <nav class="nav-right nav-menu">
               <%= if logged_in?(@conn) do %>
                 <%= nav_link @conn, "Write", memo_path(@conn, :new) %>
-                <%= nav_link @conn, "Settings", user_path(@conn, :edit, current_user(@conn)) %>
+                <%= nav_link @conn, "Settings", user_path(@conn, :edit) %>
                 <%= link "Logout", to: session_path(@conn, :delete), form: [class: "nav-item has-text-left"], method: :delete %>
               <% else %>
                 <%= nav_link @conn, "Register", user_path(@conn, :new) %>

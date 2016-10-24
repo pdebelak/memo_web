@@ -36,22 +36,12 @@ defmodule MemoWeb.UserControllerTest do
     user = Repo.insert! %User{}
     conn = conn
     |> with_current_user(user)
-    |> get(user_path(conn, :edit, user))
+    |> get(user_path(conn, :edit))
     assert html_response(conn, 200) =~ "Update Settings"
   end
 
   test "renders 401 for edit if not logged in", %{conn: conn} do
-    user = Repo.insert! %User{}
-    conn = get conn, user_path(conn, :edit, user)
-    assert html_response(conn, 401)
-  end
-
-  test "renders 401 for edit if logged in as different user", %{conn: conn} do
-    user = Repo.insert! %User{}
-    other_user = Repo.insert! %User{}
-    conn = conn
-    |> with_current_user(other_user)
-    |> get(user_path(conn, :edit, user))
+    conn = get conn, user_path(conn, :edit)
     assert html_response(conn, 401)
   end
 
@@ -59,23 +49,13 @@ defmodule MemoWeb.UserControllerTest do
     user = Repo.insert! %User{}
     conn = conn
     |> with_current_user(user)
-    |> put(user_path(conn, :update, user), user: @valid_attrs)
+    |> put(user_path(conn, :update), user: @valid_attrs)
     assert redirected_to(conn) == memo_path(conn, :index)
     assert Repo.get_by(User, email: @valid_attrs[:email])
   end
 
   test "renders 401 for update if not logged in", %{conn: conn} do
-    user = Repo.insert! %User{}
-    conn = put conn, user_path(conn, :update, user), user: @valid_attrs
-    assert html_response(conn, 401)
-  end
-
-  test "renders 401 for update if logged in as different user", %{conn: conn} do
-    user = Repo.insert! %User{}
-    other_user = Repo.insert! %User{}
-    conn = conn
-    |> with_current_user(other_user)
-    |> put(user_path(conn, :update, user), user: @valid_attrs)
+    conn = put conn, user_path(conn, :update), user: @valid_attrs
     assert html_response(conn, 401)
   end
 
@@ -83,7 +63,7 @@ defmodule MemoWeb.UserControllerTest do
     user = Repo.insert! %User{}
     conn = conn
     |> with_current_user(user)
-    |> put(user_path(conn, :update, user), user: @invalid_attrs)
+    |> put(user_path(conn, :update), user: @invalid_attrs)
     assert html_response(conn, 200) =~ "Update Settings"
   end
 end

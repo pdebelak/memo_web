@@ -25,32 +25,23 @@ defmodule MemoWeb.UserController do
     end
   end
 
-  def edit(conn, %{"id" => id}) do
-    user = User.find(id)
-    if Guardian.Plug.current_resource(conn).id == user.id do
-      changeset = User.changeset(user)
-      render(conn, "edit.html", user: user, changeset: changeset)
-    else
-      AuthenticatedPlug.unauthenticated(conn, %{})
-    end
+  def edit(conn, _params) do
+    user = current_user(conn)
+    changeset = User.changeset(user)
+    render(conn, "edit.html", user: user, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = User.find(id)
+  def update(conn, %{"user" => user_params}) do
+    user = current_user(conn)
+    changeset = User.changeset(user, user_params)
 
-    if Guardian.Plug.current_resource(conn).id == user.id do
-      changeset = User.changeset(user, user_params)
-
-      case Repo.update(changeset) do
-        {:ok, _user} ->
-          conn
-          |> put_flash(:info, "User updated successfully.")
-          |> redirect(to: memo_path(conn, :index))
-        {:error, changeset} ->
-          render(conn, "edit.html", user: user, changeset: changeset)
-      end
-    else
-      AuthenticatedPlug.unauthenticated(conn, %{})
+    case Repo.update(changeset) do
+      {:ok, _user} ->
+        conn
+        |> put_flash(:info, "User updated successfully.")
+        |> redirect(to: memo_path(conn, :index))
+      {:error, changeset} ->
+        render(conn, "edit.html", user: user, changeset: changeset)
     end
   end
 end
