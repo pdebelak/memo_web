@@ -3,8 +3,6 @@
 <div class="columns">
   <div class="column">
     <%= form_for @changeset, session_path(@conn, :create), fn f -> %>
-      <%= error_header @changeset, "Your email or password were incorrect. Please try again." %>
-
       <%= email_tag f, :email %>
       <%= password_tag f, :password %>
       <%= submit_tag "Login" %>

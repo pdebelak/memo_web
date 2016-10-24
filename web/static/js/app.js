@@ -11,8 +11,9 @@
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-import "phoenix_html";
-import "./nav_toggle";
+import 'phoenix_html';
+import './nav_toggle';
+import './delete_button';
 
 // Import local files
 //

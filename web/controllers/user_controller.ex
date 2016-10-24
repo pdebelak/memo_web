@@ -21,7 +21,9 @@ defmodule MemoWeb.UserController do
         |> put_flash(:info, "User created successfully.")
         |> redirect(to: memo_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> put_flash(:error, "Oops, something went wrong! Please check the errors below.")
+        |> render("new.html", changeset: changeset)
     end
   end
 
@@ -41,7 +43,9 @@ defmodule MemoWeb.UserController do
         |> put_flash(:info, "User updated successfully.")
         |> redirect(to: memo_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "edit.html", user: user, changeset: changeset)
+        conn
+        |> put_flash(:error, "Oops, something went wrong! Please check the errors below.")
+        |> render("edit.html", user: user, changeset: changeset)
     end
   end
 end

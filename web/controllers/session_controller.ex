@@ -18,7 +18,9 @@ defmodule MemoWeb.SessionController do
         |> put_flash(:info, "Signed in!")
         |> redirect(to: memo_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        conn
+        |> put_flash(:error, "Your email or password were incorrect. Please try again.")
+        |> render("new.html", changeset: changeset)
     end
   end
 

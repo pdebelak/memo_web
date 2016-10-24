@@ -23,12 +23,6 @@ defmodule MemoWeb.FormHelpers do
     end
   end
 
-  def error_header(changeset, message) do
-    if changeset.action do
-      content_tag :div, message, class: "notification is-danger"
-    end
-  end
-
   defp form_field_tag(form, field, input_method) do
     form_field_tag form, field, input_method, "input"
   end

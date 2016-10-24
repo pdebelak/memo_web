@@ -1,8 +1,6 @@
 <div class="columns">
   <div class="column">
     <%= form_for @changeset, @action, fn f -> %>
-      <%= error_header @changeset, "Oops, something went wrong! Please check the errors below." %>
-
       <%= text_tag f, :title %>
 
       <%= textarea_tag f, :body %>
