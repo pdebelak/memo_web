@@ -1,0 +1,19 @@
+<article class="message">
+  <header class="message-header">
+    <h1 class="title is-inline-block is-marginless"><%= link @memo.title, to: memo_path(@conn, :show, @memo) %></h1>
+    <p class="is-inline-block">by <%= link user_name(@memo), to: memo_path(@conn, :for_user, @memo.user) %></p>
+  </header>
+  <div class="message-body">
+    <div class="content">
+      <%= raw memo_body(@memo) %>
+    </div>
+    <%= if logged_in?(@conn) && current_user(@conn).id == @memo.user_id do %>
+      <div class="is-clearfix">
+        <div class="is-pulled-right">
+          <%= link "Edit", to: memo_path(@conn, :edit, @memo), class: "button" %>
+          <%= link "Delete", to: memo_path(@conn, :delete, @memo), method: :delete, class: "button is-danger", data: [confirm: "Are you sure?"], form: [class: "is-inline-flex"] %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</article>

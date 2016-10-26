@@ -5,7 +5,7 @@
 
       <%= textarea_tag f, :body %>
 
-      <%= submit_tag "Submit" %>
+      <%= submit_tag @submit_text %>
     <% end %>
   </div>
   <div class="column"></div>

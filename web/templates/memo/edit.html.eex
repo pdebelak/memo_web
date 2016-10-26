@@ -1,4 +1,3 @@
 <h2 class="title">Edit memo</h2>
 
-<%= render "form.html", changeset: @changeset,
-                        action: memo_path(@conn, :update, @memo) %>
+<%= render "form.html", changeset: @changeset, action: memo_path(@conn, :update, @memo), submit_text: "Update" %>

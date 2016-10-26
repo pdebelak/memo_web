@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="MemoWeb - Write your memos on the web">
     <title>MemoWeb</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
@@ -38,20 +37,24 @@
         </header>
       </div>
     </section>
+    <%= if get_flash(@conn, :info) do %>
+      <div class="notification is-success is-flash">
+        <button class="delete"></button>
+        <div class="container">
+          <%= get_flash(@conn, :info) %>
+        </div>
+      </div>
+    <% end %>
+    <%= if get_flash(@conn, :error) do %>
+      <div class="notification is-danger is-flash">
+        <button class="delete"></button>
+        <div class="container">
+          <%= get_flash(@conn, :error) %>
+        </div>
+      </div>
+    <% end %>
     <main class="section">
       <div class="container">
-        <%= if get_flash(@conn, :info) do %>
-          <div class="notification is-success">
-            <button class="delete"></button>
-            <%= get_flash(@conn, :info) %>
-          </div>
-        <% end %>
-        <%= if get_flash(@conn, :error) do %>
-          <div class="notification is-danger">
-            <button class="delete"></button>
-            <%= get_flash(@conn, :error) %>
-          </div>
-        <% end %>
         <%= render @view_module, @view_template, assigns %>
       </div>
     </main>

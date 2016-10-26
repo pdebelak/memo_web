@@ -9,6 +9,7 @@ defmodule MemoWeb.MemoController do
   def index(conn, params) do
     {memos, kerosene} = Memo
     |> preload(:user)
+    |> order_by(desc: :inserted_at)
     |> Repo.paginate(params)
     render(conn, "index.html", memos: memos, kerosene: kerosene)
   end
@@ -77,6 +78,7 @@ defmodule MemoWeb.MemoController do
   def for_user(conn, params = %{"user_id" => user_id}) do
     {memos, kerosene} = Memo
     |> preload(:user)
+    |> order_by(desc: :inserted_at)
     |> where(user_id: ^user_id)
     |> Repo.paginate(%{"page" => params["page"]})
     render(conn, "index.html", memos: memos, user: MemoWeb.User.find(user_id), kerosene: kerosene)
