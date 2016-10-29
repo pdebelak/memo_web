@@ -1,6 +1,5 @@
 defmodule MemoWeb.User do
   use MemoWeb.Web, :model
-  alias MemoWeb.Repo
 
   @required_fields [:email, :password, :password_confirmation]
   @optional_fields []
@@ -14,12 +13,8 @@ defmodule MemoWeb.User do
     timestamps()
   end
 
-  def find(id) do
-    Repo.get!(__MODULE__, id)
-  end
-
   def authenticate(params) do
-    case check_password(Repo.get_by(__MODULE__, email: params["email"]), params) do
+    case check_password(MemoWeb.UserStorage.by_email(params["email"]), params) do
       {:ok, user} -> {:ok, user}
       {:error} ->
         changeset = changeset(%__MODULE__{}, params)
