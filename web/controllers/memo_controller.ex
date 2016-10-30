@@ -2,12 +2,13 @@ defmodule MemoWeb.MemoController do
   use MemoWeb.Web, :controller
 
   alias MemoWeb.Memo
-  alias MemoWeb.MemoStorage
+  @memo_storage Application.get_env(:memo_web, MemoWeb)[:memo_storage]
+  @user_storage Application.get_env(:memo_web, MemoWeb)[:user_storage]
 
   plug MemoWeb.AuthenticatedPlug when action in [:new, :create, :edit, :update, :delete]
 
   def index(conn, params) do
-    {memos, kerosene} = MemoStorage.all_paginated(params["page"])
+    {memos, kerosene} = @memo_storage.all_paginated(params["page"])
     render(conn, "index.html", memos: memos, kerosene: kerosene)
   end
 
@@ -19,7 +20,7 @@ defmodule MemoWeb.MemoController do
   def create(conn, %{"memo" => memo_params}) do
     changeset = Memo.changeset(%Memo{user: current_user(conn)}, memo_params)
 
-    case MemoStorage.save(changeset) do
+    case @memo_storage.save(changeset) do
       {:ok, _memo} ->
         conn
         |> put_flash(:info, "Memo created successfully.")
@@ -32,21 +33,21 @@ defmodule MemoWeb.MemoController do
   end
 
   def show(conn, %{"id" => id}) do
-    memo = MemoStorage.find(id)
+    memo = @memo_storage.find(id)
     render(conn, "show.html", memo: memo)
   end
 
   def edit(conn, %{"id" => id}) do
-    memo = MemoStorage.for_user(id, current_user(conn))
+    memo = @memo_storage.for_user(id, current_user(conn))
     changeset = Memo.changeset(memo)
     render(conn, "edit.html", memo: memo, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "memo" => memo_params}) do
-    memo = MemoStorage.for_user(id, current_user(conn))
+    memo = @memo_storage.for_user(id, current_user(conn))
     changeset = Memo.changeset(memo, memo_params)
 
-    case MemoStorage.save(changeset) do
+    case @memo_storage.save(changeset) do
       {:ok, memo} ->
         conn
         |> put_flash(:info, "Memo updated successfully.")
@@ -59,15 +60,15 @@ defmodule MemoWeb.MemoController do
   end
 
   def delete(conn, %{"id" => id}) do
-    memo = MemoStorage.for_user(id, current_user(conn))
-    MemoStorage.delete(memo)
+    memo = @memo_storage.for_user(id, current_user(conn))
+    @memo_storage.delete(memo)
     conn
     |> put_flash(:info, "Memo deleted successfully.")
     |> redirect(to: memo_path(conn, :index))
   end
 
   def for_user(conn, params = %{"user_id" => user_id}) do
-    {memos, kerosene} = MemoStorage.all_paginated_for_user_id(user_id, params["page"])
-    render(conn, "index.html", memos: memos, user: MemoWeb.UserStorage.find(user_id), kerosene: kerosene)
+    {memos, kerosene} = @memo_storage.all_paginated_for_user_id(user_id, params["page"])
+    render(conn, "index.html", memos: memos, user: @user_storage.find(user_id), kerosene: kerosene)
   end
 end

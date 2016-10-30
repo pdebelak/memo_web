@@ -1,6 +1,7 @@
 defmodule MemoWeb.User do
   use MemoWeb.Web, :model
 
+  @user_storage Application.get_env(:memo_web, MemoWeb)[:user_storage]
   @required_fields [:email, :password, :password_confirmation]
   @optional_fields []
 
@@ -14,7 +15,7 @@ defmodule MemoWeb.User do
   end
 
   def authenticate(params) do
-    case check_password(MemoWeb.UserStorage.by_email(params["email"]), params) do
+    case check_password(@user_storage.by_email(params["email"]), params) do
       {:ok, user} -> {:ok, user}
       {:error} ->
         changeset = changeset(%__MODULE__{}, params)
@@ -40,8 +41,8 @@ defmodule MemoWeb.User do
     |> unique_constraint(:email)
   end
 
-  defp hash_password(%{valid?: false} = changeset), do: changeset
-  defp hash_password(%{valid?: true} = changeset) do
+  def hash_password(%{valid?: false} = changeset), do: changeset
+  def hash_password(%{valid?: true} = changeset) do
     hashedpw = Comeonin.Bcrypt.hashpwsalt(Ecto.Changeset.get_field(changeset, :password))
     Ecto.Changeset.put_change(changeset, :password_hash, hashedpw)
   end

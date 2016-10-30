@@ -2,7 +2,7 @@ defmodule MemoWeb.UserController do
   use MemoWeb.Web, :controller
 
   alias MemoWeb.User
-  alias MemoWeb.UserStorage
+  @user_storage Application.get_env(:memo_web, MemoWeb)[:user_storage]
 
   plug MemoWeb.AuthenticatedPlug when action in [:edit, :update]
 
@@ -14,7 +14,7 @@ defmodule MemoWeb.UserController do
   def create(conn, %{"user" => user_params}) do
     changeset = User.changeset(%User{}, user_params)
 
-    case UserStorage.save(changeset) do
+    case @user_storage.save(changeset) do
       {:ok, user} ->
         conn
         |> Guardian.Plug.sign_in(user)
@@ -37,7 +37,7 @@ defmodule MemoWeb.UserController do
     user = current_user(conn)
     changeset = User.changeset(user, user_params)
 
-    case UserStorage.save(changeset) do
+    case @user_storage.save(changeset) do
       {:ok, _user} ->
         conn
         |> put_flash(:info, "User updated successfully.")

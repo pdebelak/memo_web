@@ -3,6 +3,13 @@ defmodule MemoWeb.MemoStorage do
   alias MemoWeb.Repo
   alias MemoWeb.Memo
 
+  @callback find(integer) :: Ecto.Schema.t | nil | no_return
+  @callback for_user(integer, Ecto.Schema.t) :: Ecto.Schema.t | nil | no_return
+  @callback save(Ecto.Changeset.t) :: {:ok, Ecto.Schema.t} | {:error, Ecto.Changeset.t}
+  @callback all_paginated(integer) :: { [Ecto.Schema.t], struct }
+  @callback all_paginated_for_user_id(integer, integer | nil) :: { [Ecto.Schema.t], struct }
+  @callback delete(Ecto.Schema.t) ::  Ecto.Schema.t | no_return
+
   def find(id) do
     Memo
     |> preload(:user)

@@ -1,7 +1,10 @@
 defmodule MemoWeb.UserStorage do
-  import Ecto.Query
   alias MemoWeb.Repo
   alias MemoWeb.User
+
+  @callback find(integer) :: Ecto.Schema.t | nil | no_return
+  @callback save(Ecto.Changeset.t) :: {:ok, Ecto.Schema.t} | {:error, Ecto.Changeset.t}
+  @callback by_email(String.t) :: Ecto.Schema.t | nil | no_return
 
   def find(id) do
     Repo.get!(User, id)
