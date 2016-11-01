@@ -1,3 +1,1 @@
-<h2 class="title">New memo</h2>
-
-<%= render "form.html", changeset: @changeset, action: memo_path(@conn, :create), submit_text: "Create" %>
+<%= render "form.html", changeset: @changeset, action: memo_path(@conn, :create), submit_text: "Create", title: "New memo" %>

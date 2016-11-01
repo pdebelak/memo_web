@@ -1,6 +1,16 @@
 defmodule MemoWeb.FormHelpers do
   use Phoenix.HTML
 
+  def form_with_title(title, do: form) do
+    content_tag :section, class: "message" do
+      header = content_tag :header, class: "message-header" do
+        content_tag :h1, title, class: "title"
+      end
+      body = content_tag :div, form, class: "message-body"
+      [header, body]
+    end
+  end
+
   def text_tag(form, field) do
     form_field_tag(form, field, :text_input)
   end

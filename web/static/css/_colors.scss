@@ -7,6 +7,8 @@ $green: #2ecc40;
 $red: #ff4136;
 $yellow: #ffdc00;
 
-$primary: $purple;
+$light-blue: lighten($blue, 50);
 
-$body-background: $white;
+$primary: $blue;
+
+$body-background: $light-blue;

@@ -1,3 +1,1 @@
-<h2 class="title">Register</h2>
-
-<%= render "form.html", changeset: @changeset, action: user_path(@conn, :create), submit_text: "Register" %>
+<%= render "form.html", changeset: @changeset, action: user_path(@conn, :create), submit_text: "Register", title: "Register" %>

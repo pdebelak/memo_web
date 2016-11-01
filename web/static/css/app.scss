@@ -3,3 +3,7 @@
 @import "./messages";
 @import "./flash";
 @import "./modifiers";
+
+.section {
+  background-color: $body-background;
+}

@@ -1,11 +1,11 @@
-<h2 class="title">Login</h2>
-
 <div class="columns">
   <div class="column">
-    <%= form_for @changeset, session_path(@conn, :create), fn f -> %>
-      <%= email_tag f, :email %>
-      <%= password_tag f, :password %>
-      <%= submit_tag "Login" %>
+    <%= form_with_title "Login" do %>
+      <%= form_for @changeset, session_path(@conn, :create), fn f -> %>
+        <%= email_tag f, :email %>
+        <%= password_tag f, :password %>
+        <%= submit_tag "Login" %>
+      <% end %>
     <% end %>
   </div>
   <div class="column"></div>

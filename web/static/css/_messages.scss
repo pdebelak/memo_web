@@ -1,7 +1,11 @@
 .message-header {
   background-color: $primary;
   color: $grey-lighter;
-  a {
+  a, .title {
     color: $white;
   }
+}
+
+.message {
+  background-color: $white;
 }

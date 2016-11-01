@@ -1,11 +1,11 @@
 <div class="columns">
   <div class="column">
-    <%= form_for @changeset, @action, fn f -> %>
-      <%= text_tag f, :title %>
-
-      <%= textarea_tag f, :body %>
-
-      <%= submit_tag @submit_text %>
+    <%= form_with_title @title do %>
+      <%= form_for @changeset, @action, fn f -> %>
+        <%= text_tag f, :title %>
+        <%= textarea_tag f, :body %>
+        <%= submit_tag @submit_text %>
+      <% end %>
     <% end %>
   </div>
   <div class="column"></div>
