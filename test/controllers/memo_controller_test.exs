@@ -1,5 +1,5 @@
 defmodule MemoWeb.MemoControllerTest do
-  use MemoWeb.ConnCase
+  use MemoWeb.ConnCase, async: true
 
   alias MemoWeb.Memo
   alias MemoWeb.User

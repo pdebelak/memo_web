@@ -1,5 +1,5 @@
 defmodule MemoWeb.UserTest do
-  use MemoWeb.ModelCase
+  use MemoWeb.ModelCase, async: true
 
   alias MemoWeb.User
 

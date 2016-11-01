@@ -1,5 +1,5 @@
 defmodule MemoWeb.UserControllerTest do
-  use MemoWeb.ConnCase
+  use MemoWeb.ConnCase, async: true
 
   alias MemoWeb.User
   @valid_attrs %{email: "test@example.com", password: "password", password_confirmation: "password"}
