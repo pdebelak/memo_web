@@ -101,7 +101,7 @@ defmodule MemoWeb.MemoControllerTest do
     Repo.insert! %Memo{user: user, title: "User post"}
     other_user = Repo.insert! %User{email: "test2@example.com"}
     Repo.insert! %Memo{user: other_user, title: "Other user post"}
-    conn = get conn, memo_path(conn, :for_user, user)
+    conn = get conn, user_memo_path(conn, :index, user)
     assert html_response(conn, 200) =~ "User post"
     refute html_response(conn, 200) =~ "Other user post"
     assert html_response(conn, 200) =~ "Posts by \"test\""

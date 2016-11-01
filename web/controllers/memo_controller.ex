@@ -7,6 +7,10 @@ defmodule MemoWeb.MemoController do
 
   plug MemoWeb.AuthenticatedPlug when action in [:new, :create, :edit, :update, :delete]
 
+  def index(conn, params = %{"user_id" => user_id}) do
+    {memos, kerosene} = @memo_storage.all_paginated_for_user_id(user_id, params["page"])
+    render(conn, "index.html", memos: memos, user: @user_storage.find(user_id), kerosene: kerosene)
+  end
   def index(conn, params) do
     {memos, kerosene} = @memo_storage.all_paginated(params["page"])
     render(conn, "index.html", memos: memos, kerosene: kerosene)
@@ -65,10 +69,5 @@ defmodule MemoWeb.MemoController do
     conn
     |> put_flash(:info, "Memo deleted successfully.")
     |> redirect(to: memo_path(conn, :index))
-  end
-
-  def for_user(conn, params = %{"user_id" => user_id}) do
-    {memos, kerosene} = @memo_storage.all_paginated_for_user_id(user_id, params["page"])
-    render(conn, "index.html", memos: memos, user: @user_storage.find(user_id), kerosene: kerosene)
   end
 end
