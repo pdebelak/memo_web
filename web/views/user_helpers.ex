@@ -4,6 +4,6 @@ defmodule MemoWeb.UserHelpers do
   end
 
   def current_user(conn) do
-    Guardian.Plug.current_resource(conn)
+    MemoWeb.Users.Authentication.current_user(conn)
   end
 end

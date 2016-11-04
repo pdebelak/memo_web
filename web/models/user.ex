@@ -1,7 +1,6 @@
 defmodule MemoWeb.User do
   use MemoWeb.Web, :model
 
-  @user_storage Application.get_env(:memo_web, MemoWeb)[:user_storage]
   @required_fields [:email, :password, :password_confirmation]
   @optional_fields []
 
@@ -15,7 +14,7 @@ defmodule MemoWeb.User do
   end
 
   def authenticate(params) do
-    case check_password(@user_storage.by_email(params["email"]), params) do
+    case check_password(MemoWeb.Users.Storage.by_email(params["email"]), params) do
       {:ok, user} -> {:ok, user}
       {:error} ->
         changeset = changeset(%__MODULE__{}, params)

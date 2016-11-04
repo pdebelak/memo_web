@@ -38,7 +38,7 @@ defmodule MemoWeb.Web do
       import MemoWeb.Gettext
 
       defp current_user(conn) do
-        Guardian.Plug.current_resource(conn)
+        MemoWeb.Users.Authentication.current_user(conn)
       end
     end
   end

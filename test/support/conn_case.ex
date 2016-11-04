@@ -34,7 +34,7 @@ defmodule MemoWeb.ConnCase do
         conn
           |> bypass_through(MemoWeb.Router, [:browser])
           |> get("/")
-          |> Guardian.Plug.sign_in(user)
+          |> MemoWeb.Users.Authentication.sign_in(user)
           |> send_resp(200, "Flush the session")
           |> recycle()
       end

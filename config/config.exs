@@ -27,11 +27,7 @@ config :guardian, Guardian,
   issuer: "MemoWeb",
   ttl: { 30, :days },
   secret_key: System.get_env("GUARDIAN_SECRET") || "j4luxitBg0K/89hqMW5YAAU5lQti2c7m57spmAykhTisVzav2LV05toCG4QFZuJo",
-  serializer: MemoWeb.GuardianSerializer
-
-# db interaction modules
-config :memo_web, MemoWeb, user_storage: MemoWeb.UserStorage
-config :memo_web, MemoWeb, memo_storage: MemoWeb.MemoStorage
+  serializer: MemoWeb.Users.Authentication
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
